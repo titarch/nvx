@@ -7,7 +7,8 @@ from pathlib import Path
 def init_config():
     config = configparser.ConfigParser()
     config.optionxform = str
-    config.add_section('Settings')
+    config.add_section('Layout')
+    config.set('Layout', 'Row_1', '1')
     config.add_section('Screen_1')
     config.set('Screen_1', 'ScreenID', 'DP-0')
     config.set('Screen_1', 'ScreenName', 'Screen 1')
