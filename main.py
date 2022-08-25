@@ -100,7 +100,9 @@ def screen_settings(screen):
 
 
 def nvidia_settings(screens):
-    screens_settings = ', '.join(screen_settings(screen) for screen in screens.values() if 'position' in screen)
+    screens_settings = ', '.join(
+        screen_settings(screen) for screen in screens.values() if
+        'position' in screen and not re.match(r"DUMMY-\d", screen['id']))
     cmd = f'nvidia-settings --assign CurrentMetaMode="{screens_settings}"'
     print(f"Running {cmd}")
     args = shlex.split(cmd)
