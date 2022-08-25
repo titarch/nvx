@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import argparse
 import configparser
 import os
 import re
@@ -63,12 +64,17 @@ def parse_screens(config, screen_sections):
     return screens
 
 
-def parse_user_config():
+def parse_user_config(override_layout=None):
     config = get_user_config()
     sections = config.sections()
-    if 'Layout' not in sections:
-        raise RuntimeError('No Layout section found in config')
-    layout = parse_layout_matrix(config)
+    layout = None
+    if override_layout:
+        assert re.match(r'^[\d ]+$', override_layout), 'Layout must be a list of numbers and spaces'
+        layout = [list(map(int, override_layout.split(' ')))]
+    else:
+        if 'Layout' not in sections:
+            raise RuntimeError('No Layout section found in config')
+        layout = parse_layout_matrix(config)
 
     screen_sections = [section for section in sections if re.match(r'^Screen_\d+$', section)]
     if len(screen_sections) == 0:
@@ -105,7 +111,10 @@ def nvidia_settings(screens):
 
 
 def main():
-    layout, screens = parse_user_config()
+    parser = argparse.ArgumentParser(description='Configure nvidia-settings for multiple screens')
+    parser.add_argument('-l', '--layout', help='Override layout, e.g. 1 2 3', default=None)
+    args = parser.parse_args()
+    layout, screens = parse_user_config(args.layout)
     compute_screen_positions(layout, screens)
     nvidia_settings(screens)
 
