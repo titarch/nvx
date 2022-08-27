@@ -53,15 +53,16 @@ ScreenRefreshRate = 144
 Notes:
 - A dummy screen maybe used for offsetting the screens, you must call is DUMMY-\<index\>
 
-### Installation
-#### Using pip
+## Installation
+### Using pip
 
 ```shell
 pip3 install nvx
 ```
 
-### Running
-> :warning: Make sure to properly change the configuration before running nvx
+## Running
+> :warning: Running `nvx` for the first time without prior configuration will write the default config.
+> Make sure to properly edit the generated configuration before running nvx again
 > (you can use the output from `xrandr` to figure out the screen properties). Improperly configured
 > screens could result in a black screen when running the script.
 
