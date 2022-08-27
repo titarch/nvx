@@ -1,6 +1,8 @@
 # nvx
 Simple script running nvidia-settings (with anti-tearing) based on your configured layout
 
+[![PyPI version](https://badge.fury.io/py/nvx.svg)](https://badge.fury.io/py/nvx)
+
 ## Configuration
 
 The configuration is stored in the file `~/.config/nvx/nvx.conf`.
