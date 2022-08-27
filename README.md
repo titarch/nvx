@@ -66,6 +66,6 @@ pip3 install nvx
 > screens could result in a black screen when running the script.
 
 ```bash
-$ python3 main.py # runs using the default configuration
-$ python3 main.py -l "1 2 3" # overrides the layout
+$ nvx # runs using the default configuration
+$ nvx -l "1 2 3" # overrides the layout
 ```
