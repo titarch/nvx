@@ -53,6 +53,13 @@ ScreenRefreshRate = 144
 Notes:
 - A dummy screen maybe used for offsetting the screens, you must call is DUMMY-\<index\>
 
+### Installation
+#### Using pip
+
+```shell
+pip3 install nvx
+```
+
 ### Running
 
 ```bash
