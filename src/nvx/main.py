@@ -23,11 +23,17 @@ def init_config():
 
 def get_user_config():
     config_path = Path.home() / '.config' / 'nvx' / 'nvx.conf'
-    if not os.path.exists(config_path):
+    if not config_path.exists():
+        print("No config file found.")
         os.makedirs(os.path.dirname(config_path), exist_ok=True)
         default_config = init_config()
         with open(config_path, 'w') as configfile:
             default_config.write(configfile)
+        print(f"A new config file using default configuration was created under '{config_path}'.\n"
+              "Make sure to properly change the config according to your screen setup before running this command again"
+              "to avoid getting a black screen.\n"
+              "Run `xrandr' to have information on your screen ids, supported resolutions and refresh rates.")
+        exit(2)
     config = configparser.ConfigParser()
     config.optionxform = str
     config.read(config_path)
