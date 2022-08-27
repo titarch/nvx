@@ -61,6 +61,9 @@ pip3 install nvx
 ```
 
 ### Running
+> :warning: Make sure to properly change the configuration before running nvx
+> (you can use the output from `xrandr` to figure out the screen properties). Improperly configured
+> screens could result in a black screen when running the script.
 
 ```bash
 $ python3 main.py # runs using the default configuration
