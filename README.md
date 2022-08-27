@@ -11,8 +11,6 @@ have multiple rows.
 
 ### Example
 
-```
-
 ```ini
 # $HOME/.config/nvx/nvx.conf
 [Layout]
