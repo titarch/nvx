@@ -67,6 +67,25 @@ pip3 install nvx
 > screens could result in a black screen when running the script.
 
 ```bash
+$ nvx --help
+```
+
+```text
+usage: main.py [-h] [-w WRAP] [layout ...]
+
+Configure nvidia-settings for multiple screens
+
+positional arguments:
+  layout                Screen layout, e.g. 1 2 3, defaults to config file
+
+options:
+  -h, --help            show this help message and exit
+  -w WRAP, --wrap WRAP  Number of screens per row, e.g. 2 with 4 screens will result in 2x2 layout, infinite if not set
+```
+
+```bash
 $ nvx # runs using the default configuration
-$ nvx -l "1 2 3" # overrides the layout
+$ nvx 1 2 3 # overrides the layout to [1][2][3] with corresponding screens ids from the configuration
+$ nvx 1 2 3 4 --wrap 2 # makes a 2x2 layout: [1][2]
+                       #                     [3][4]
 ```
