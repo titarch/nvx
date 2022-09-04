@@ -3,9 +3,9 @@ import argparse
 import configparser
 import os
 import re
-from pathlib import Path
 import shlex
 import subprocess
+from pathlib import Path
 
 
 def init_config():
@@ -123,8 +123,10 @@ def nvidia_settings(screens):
 def main():
     parser = argparse.ArgumentParser(description='Configure nvidia-settings for multiple screens')
     parser.add_argument('layout', nargs='*', type=int, help='Screen layout, e.g. 1 2 3, defaults to config file')
-    parser.add_argument('-w', '--wrap', type=int,
-                        help='Number of screens per row, e.g. 2 with 4 screens will result in 2x2 layout')
+    parser.add_argument(
+        '-w', '--wrap', type=int,
+        help='Number of screens per row, e.g. 2 with 4 screens will result in 2x2 layout, infinite if not set'
+    )
     args = parser.parse_args()
     if args.wrap and len(args.layout) == 0:
         raise RuntimeError('Layout must be specified when using wrap')
