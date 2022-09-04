@@ -73,7 +73,7 @@ def parse_screens(config, screen_sections):
 def parse_user_config(override_layout=None, wrap=None):
     config = get_user_config()
     sections = config.sections()
-    if override_layout is not None:
+    if override_layout is not None and len(override_layout) > 0:
         if wrap is not None:
             assert wrap > 0, 'Wrap must be a positive integer'
             layout = [override_layout[i:i + wrap] for i in range(0, len(override_layout), wrap)]
@@ -126,7 +126,7 @@ def main():
     parser.add_argument('-w', '--wrap', type=int,
                         help='Number of screens per row, e.g. 2 with 4 screens will result in 2x2 layout')
     args = parser.parse_args()
-    if args.wrap and not args.layout:
+    if args.wrap and len(args.layout) == 0:
         raise RuntimeError('Layout must be specified when using wrap')
     layout, screens = parse_user_config(args.layout, args.wrap)
     compute_screen_positions(layout, screens)
