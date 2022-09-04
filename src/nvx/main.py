@@ -70,11 +70,15 @@ def parse_screens(config, screen_sections):
     return screens
 
 
-def parse_user_config(override_layout=None):
+def parse_user_config(override_layout=None, wrap=None):
     config = get_user_config()
     sections = config.sections()
-    if override_layout:
-        layout = [override_layout]
+    if override_layout is not None:
+        if wrap is not None:
+            assert wrap > 0, 'Wrap must be a positive integer'
+            layout = [override_layout[i:i + wrap] for i in range(0, len(override_layout), wrap)]
+        else:
+            layout = [override_layout]
     else:
         if 'Layout' not in sections:
             raise RuntimeError('No Layout section found in config')
@@ -119,8 +123,12 @@ def nvidia_settings(screens):
 def main():
     parser = argparse.ArgumentParser(description='Configure nvidia-settings for multiple screens')
     parser.add_argument('layout', nargs='*', type=int, help='Screen layout, e.g. 1 2 3, defaults to config file')
+    parser.add_argument('-w', '--wrap', type=int,
+                        help='Number of screens per row, e.g. 2 with 4 screens will result in 2x2 layout')
     args = parser.parse_args()
-    layout, screens = parse_user_config(args.layout)
+    if args.wrap and not args.layout:
+        raise RuntimeError('Layout must be specified when using wrap')
+    layout, screens = parse_user_config(args.layout, args.wrap)
     compute_screen_positions(layout, screens)
     nvidia_settings(screens)
 
